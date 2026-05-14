@@ -1,0 +1,98 @@
+basePath: /
+definitions:
+  controllers.LoginInput:
+    properties:
+      email:
+        example: test@gmail.com
+        type: string
+      password:
+        example: password123
+        type: string
+    type: object
+  controllers.SignupInput:
+    properties:
+      email:
+        example: test@gmail.com
+        type: string
+      password:
+        example: password123
+        type: string
+    type: object
+host: localhost:3000
+info:
+  contact: {}
+  description: Simple CRUD API using Gin and GORM
+  title: Go CRUD API
+  version: "1.0"
+paths:
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: Authenticate user and return JWT cookie
+      parameters:
+      - description: User Login Data
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.LoginInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Login user
+      tags:
+      - auth
+  /signup:
+    post:
+      consumes:
+      - application/json
+      description: Create a new user account
+      parameters:
+      - description: User Signup Data
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.SignupInput'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Register a new user
+      tags:
+      - auth
+  /validate:
+    get:
+      description: Check if user is authenticated
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Validate user
+      tags:
+      - auth
+swagger: "2.0"
